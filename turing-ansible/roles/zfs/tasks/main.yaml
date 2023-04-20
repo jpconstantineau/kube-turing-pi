@@ -25,3 +25,4 @@
 
 - name: Set StoragePool Compression
   command: zfs set compression=lz4 StoragePool
+
