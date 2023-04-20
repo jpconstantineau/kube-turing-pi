@@ -1,0 +1,4 @@
+- name: install "nfs-kernel-server" package as pre-requisite for making SATA NFS storage
+  ansible.builtin.apt:
+    name: nfs-kernel-server
+    update_cache: yes

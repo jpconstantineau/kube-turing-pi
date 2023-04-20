@@ -1,0 +1,4 @@
+- name: install "nfs-common" package as pre-requisite for NFS storage access
+  ansible.builtin.apt:
+    name: nfs-common
+    update_cache: yes

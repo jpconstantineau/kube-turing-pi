@@ -1,0 +1,4 @@
+- name: install "open-iscsi" package as longhorn pre-requisite
+  ansible.builtin.apt:
+    name: open-iscsi
+    update_cache: yes
