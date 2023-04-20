@@ -9,14 +9,11 @@
     - role: raspberrypi
       become: true
 
-- hosts: ai_accelerator
-  roles:
-    - role: coral
-      become: true
-
 - hosts: storage_server
   roles:
     - role: nfs-server
+      become: true
+    - role: zfs
       become: true
 
 - hosts: storage_client
@@ -25,4 +22,3 @@
       become: true
     - role: iscsi-client
       become: true
-

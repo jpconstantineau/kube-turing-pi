@@ -1,0 +1,27 @@
+- name: install "raspberrypi-kernel-headers" package as ZFS pre-requisite
+  ansible.builtin.apt:
+    name: raspberrypi-kernel-headers
+    update_cache: yes
+
+- name: install "zfs-dkms" package as ZFS pre-requisite
+  ansible.builtin.apt:
+    name: zfs-dkms
+    update_cache: yes
+
+- name: install "zfsutils-linux" package as ZFS pre-requisite
+  ansible.builtin.apt:
+    name: zfsutils-linux
+    update_cache: yes
+
+- name: create "storage" zpool on sda
+  ansible.builtin.command: zpool create StoragePool /dev/sda
+  become: yes
+  args:
+    creates: /StoragePool
+
+- name: Create StoragePool - command output
+  ansible.builtin.debug:
+    var: command_output.stdout_lines
+
+- name: Set StoragePool Compression
+  command: zfs set compression=lz4 StoragePool
