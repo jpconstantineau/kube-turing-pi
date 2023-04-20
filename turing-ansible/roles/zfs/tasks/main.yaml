@@ -14,8 +14,8 @@
     update_cache: yes
 
 - name: create "storage" zpool on sda
-  ansible.builtin.command: zpool create StoragePool /dev/sda
-  become: yes
+  command: zpool create StoragePool /dev/sda
+  register: command_output
   args:
     creates: /StoragePool
 
