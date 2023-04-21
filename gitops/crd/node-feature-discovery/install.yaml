@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    chart: nfd
+    chart: node-feature-discovery
     repoURL: https://kubernetes-sigs.github.io/node-feature-discovery/charts
     targetRevision: v0.13.0
     helm:
