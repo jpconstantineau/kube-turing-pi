@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nfs-subdir-external-provisioner
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: nfs-subdir-external-provisioner
+    repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+    targetRevision: 4.0.2
+    helm:
+      releaseName: nfs-subdir-external-provisioner
+      parameters:
+        - name: "nfs.server"
+          value: 192.168.10.73
+        - name: "nfs.path"
+          value: /data
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: nfs-provisioner

@@ -4,13 +4,16 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 kubectl get nodes -A -o wide
 kubectl apply -f gitops/crd/kube-system/calico.yaml
 kubectl get nodes -A -o wide
-kubectl wait --for=condition=ready node -l kubernetes.io/hostname=turing-4
+echo Waiting for control plane node to be ready
+kubectl wait --for=condition=ready node -l kubernetes.io/hostname=turing-4 --timeout=120s
+echo Waiting for dns pod to be ready
+kubectl wait --for=condition=ready pod -l k8s-app=kube-dns --timeout=120s
 kubectl get pods -A -o wide
 kubectl create namespace argocd
 kubectl apply -n argocd -f gitops/crd/argocd/install.yaml
 kubectl apply -n argocd -f gitops/bootstrap.yaml
 kubectl get pods -A -o wide
-kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argocd-server
+kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=120s
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d > admin-pass.txt
 cat admin-pass.txt
 echo login to argocd.192-168-10-74.nip.io with the password above
